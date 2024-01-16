@@ -1,0 +1,19 @@
+def per(data):
+    total_counts={}
+    working_counts={}
+    for item in data:
+        ip_address, (service_list,condition_met) = item.popitem()
+        for service_or_app in service_list:
+            total_counts[service_or_app]=total_counts.get(service_or_app, 0)+1
+            if condition_met:
+                working_counts[service_or_app]=working_counts.get(service_or_app, 0)+1
+    percentage_working={}
+    for service_or_app, total_count in total_counts.items():
+        if total_count > 0:
+            percentage_working[service_or_app] =(working_counts[service_or_app] / total_count) * 100
+        else:
+            percentage_working[service_or_app] = 0
+    for service_or_app in total_counts.keys():
+        print(f"Total {service_or_app}: {total_counts[service_or_app]}")
+        print(f"Working {service_or_app}: {working_counts.get(service_or_app, 0)}")
+        print(f"Percentage of Working {service_or_app}: {percentage_working[service_or_app]:.2f}%")
